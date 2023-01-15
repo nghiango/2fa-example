@@ -21,9 +21,11 @@ export class MfaStore {
     this.add('test');
   }
 
-  reset(id: string) {
+  renewCode(id: string) {
     const foundMfa = this.mfas.find((mfa) => mfa.id === id);
     if (foundMfa) {
+      console.log('what happened');
+      
       foundMfa.code = `${generateCode()}`;
     }
   }
