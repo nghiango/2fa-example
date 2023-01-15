@@ -1,10 +1,18 @@
 .mfa {
   display: flex;
+  justify-content: space-around;
+  align-items: center;
   &__icon {
-    width: 10rem;
-    height: 10rem;
+    width: 15%;
+    height: 15%;
   }
   &__information {}
-  &__code {}
-  &__name {}
+  &__code {
+    font-size: 4rem;
+    line-height: 84%;
+  }
+  &__name {
+    font-size: 1.2rem;
+    transform: translate(0, -8px);
+  }
 }

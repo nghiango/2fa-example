@@ -1,0 +1,14 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    &__label {}
+    &__input {
+        height: 35px;
+        line-height: 35px;
+        font-size: 20px;
+    }
+    &__error {
+        color: red;
+    }
+}

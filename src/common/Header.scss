@@ -1,0 +1,17 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 6vh;
+    border-bottom: 2px #0000000d solid;
+    &__add {
+        width: 20px;
+        margin-right: 15px;
+        cursor: pointer;
+    }
+    &__back {
+        width: 20px;
+        margin-left: 15px;
+        cursor: pointer;
+    }
+}
