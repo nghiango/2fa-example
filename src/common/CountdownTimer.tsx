@@ -6,6 +6,9 @@ interface CountDownTimerProps {
 }
 export const CountDownTimer = ({ time, callback }: CountDownTimerProps) => {
   const [timeout, setTimeout] = useState(time);
+  const circleRadius = 18;
+  const MAXIMUM_DASHOFFSET = Math.PI * 2 * circleRadius;
+
   useEffect(() => {
     const interval = setInterval(() => {
       setTimeout(timeout - 1);
@@ -17,10 +20,21 @@ export const CountDownTimer = ({ time, callback }: CountDownTimerProps) => {
     return () => clearInterval(interval);
   }, [callback, time, timeout]);
 
+  const getDashOffset = () => {
+    const strokeDashoffsetPerDay = MAXIMUM_DASHOFFSET / time;
+    return MAXIMUM_DASHOFFSET - strokeDashoffsetPerDay * timeout;
+  };
+
   return (
     <div className="countdown">
       <svg className="countdown--centered">
-        <circle r="18" cx="20" cy="20"></circle>
+        <circle
+          r={circleRadius}
+          cx="20"
+          cy="20"
+          strokeDasharray={MAXIMUM_DASHOFFSET}
+          strokeDashoffset={getDashOffset()}
+        ></circle>
       </svg>
       <div className="countdown__dash-array countdown--centered"></div>
       <span className="countdown__number">{timeout}</span>
