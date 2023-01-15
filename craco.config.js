@@ -6,6 +6,7 @@ module.exports = {
        "@stores": path.join(path.resolve(__dirname, "./src/stores/")),
        "@pages": path.join(path.resolve(__dirname, "./src/pages/")),
        "@styles": path.join(path.resolve(__dirname, "./src/styles/")),
+       "@assets": path.join(path.resolve(__dirname, "./src/assets/")),
      },
   },
 };

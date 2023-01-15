@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import { MfaEntry } from "@stores/mfaStore";
 import { CountDownTimer } from "@common/CountdownTimer";
+import './Mfa.scss';
 
 interface MfaProps {
   mfa: MfaEntry;
@@ -8,17 +9,15 @@ interface MfaProps {
 }
 export const Mfa = observer(({ mfa, renewCode }: MfaProps) => {
   const renewCodeInternal = (id: string) => () => {
-    console.log('what');
-    
     renewCode(id);
   };
 
   return (
-    <div>
-      <div>icon</div>
-      <div>
-        <div>{mfa.name}</div>
-        <div>{mfa.code}</div>
+    <div className="mfa">
+      <img className="mfa__icon" src={require('@assets/images/epic-image.png')} alt='icon'/>
+      <div className="mfa__information">
+        <div className="mfa__name">{mfa.name}</div>
+        <div className="mfa__code">{mfa.code}</div>
       </div>
       <CountDownTimer time={mfa.timeout} callback={renewCodeInternal(mfa.id)} />
     </div>

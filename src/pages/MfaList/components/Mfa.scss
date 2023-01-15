@@ -1,0 +1,10 @@
+.mfa {
+  display: flex;
+  &__icon {
+    width: 10rem;
+    height: 10rem;
+  }
+  &__information {}
+  &__code {}
+  &__name {}
+}
