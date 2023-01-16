@@ -1,28 +1,17 @@
-import { useEffect, useState } from "react";
 import "./CountdownTimer.scss";
+import { observer } from "mobx-react-lite";
 interface CountDownTimerProps {
-  time: number;
+  totalTime: number;
+  existingTime: number;
   callback?: () => void;
 }
-export const CountDownTimer = ({ time, callback }: CountDownTimerProps) => {
-  const [timeout, setTimeout] = useState(time);
+export const CountDownTimer = observer(({ totalTime, existingTime, callback }: CountDownTimerProps) => {
   const circleRadius = 18;
   const MAXIMUM_DASHOFFSET = Math.PI * 2 * circleRadius;
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTimeout(timeout - 1);
-    }, 1000);
-    if (timeout === 0) {
-      setTimeout(time);
-      callback?.();
-    }
-    return () => clearInterval(interval);
-  }, [callback, time, timeout]);
-
   const getDashOffset = () => {
-    const strokeDashoffsetPerDay = MAXIMUM_DASHOFFSET / time;
-    return MAXIMUM_DASHOFFSET - strokeDashoffsetPerDay * timeout;
+    const strokeDashoffsetPerDay = MAXIMUM_DASHOFFSET / totalTime;
+    return MAXIMUM_DASHOFFSET - strokeDashoffsetPerDay * existingTime;
   };
 
   return (
@@ -36,8 +25,7 @@ export const CountDownTimer = ({ time, callback }: CountDownTimerProps) => {
           strokeDashoffset={getDashOffset()}
         ></circle>
       </svg>
-      <div className="countdown__dash-array countdown--centered"></div>
-      <span className="countdown__number">{timeout}</span>
+      <span className="countdown__number">{existingTime}</span>
     </div>
   );
-};
+});

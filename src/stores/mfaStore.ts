@@ -7,6 +7,7 @@ export type MfaEntry = {
   code: string;
   icon: string;
   timeout: number;
+  existingTime: number;
 };
 
 const generateCode = (): string => {
@@ -26,9 +27,24 @@ export class MfaStore {
   renewCode(id: string) {
     const foundMfa = this.mfas.find((mfa) => mfa.id === id);
     if (foundMfa) {
-      console.log('what happened');
-      
       foundMfa.code = `${generateCode()}`;
+    }
+  }
+
+  reduceExistingTime(mfa: MfaEntry) {
+    mfa.existingTime--;
+    if (mfa.existingTime === 0) {
+      mfa.existingTime = mfa.timeout;
+      this.renewCode(mfa.id);
+    }
+  }
+
+  initInterval(id: string) {
+    const foundMfa = this.mfas.find((mfaData) => mfaData.id === id);
+    if (foundMfa) {
+      setInterval(() => {
+        this.reduceExistingTime(foundMfa);
+      }, 1000);
     }
   }
 
@@ -39,9 +55,13 @@ export class MfaStore {
       .code(generateCode())
       .timeout(timeout)
       .icon(iconName)
+      .existingTime(timeout)
       .build();
+
       this.mfas.push(mfa);
+      this.initInterval(mfa.id);
   }
+
   changeOrder(currentIndex: number, newIndex: number) {
     const mfa = this.mfas[currentIndex];
     this.mfas.splice(currentIndex, 1);
