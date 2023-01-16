@@ -1,0 +1,12 @@
+.add-mfa {
+    display: flex;
+    flex-direction: column;
+    &__btn-wrapper {
+        display: flex;
+        justify-content: center;
+    }
+    &__submit-btn {
+        width: fit-content;
+				font-size: 20px;
+    }
+}
