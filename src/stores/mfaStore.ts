@@ -9,8 +9,6 @@ export type MfaEntry = {
   timeout: number;
 };
 
-type SortType = Omit<MfaEntry, 'timeout'| 'icon'>;
-
 const generateCode = (): string => {
   return `${Math.floor(100000 + Math.random() * 900000)}`;
 };
@@ -44,12 +42,10 @@ export class MfaStore {
       .build();
       this.mfas.push(mfa);
   }
-  sort(fileName: keyof SortType , acsending: boolean = false) {
-    if (acsending) {
-      this.mfas.sort((a, b) => a[fileName].toLowerCase().localeCompare(b[fileName].toLowerCase()));
-    } else {
-      this.mfas.sort((a, b) => b[fileName].toLowerCase().localeCompare(a[fileName].toLowerCase()));
-    }
+  changeOrder(currentIndex: number, newIndex: number) {
+    const mfa = this.mfas[currentIndex];
+    this.mfas.splice(currentIndex, 1);
+    this.mfas.splice(newIndex, 0, mfa);
   }
 }
 
