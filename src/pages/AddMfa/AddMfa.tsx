@@ -22,7 +22,6 @@ export const AddMfa = () => {
   const onSubmit = (data: MfaForm) => {
     store.mfaStore.add(data.name);
     navigate('/');
-    console.log('File AddMfa.tsx, Line 25', new Date().getTime());
   };
   return (
     <FormProvider {...methods}>

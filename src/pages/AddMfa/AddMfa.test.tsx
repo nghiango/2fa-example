@@ -1,15 +1,16 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { AddMfa } from "@pages/AddMfa/AddMfa";
 import { StoreProvider } from "@stores/index";
+import { mfaStore } from "@stores/mfaStore";
 
 const mockNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
-  ...jest.requireActual('react-router-dom') as any,
+  ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockNavigate,
 }));
 describe('AddMfa Component', () => {
-  test('render correctly', () => {
+  test('submit will add a new mfa and navigate to /', async () => {
     render(
       <StoreProvider>
           <AddMfa/>
@@ -19,7 +20,17 @@ describe('AddMfa Component', () => {
 
     const input = screen.getByTestId('input');
     const button = screen.getByTestId('submit');
-    expect(input).toBeTruthy();
-    expect(button).toBeTruthy();
+    fireEvent.change(input, {
+      target: {
+        value: 'testing'
+      }
+    });
+    const currentAmountMfa = mfaStore.mfas.length;
+    fireEvent.click(button);
+    await waitFor(async () => {
+      expect(mfaStore.mfas.length).toEqual(currentAmountMfa + 1);
+      // eslint-disable-next-line testing-library/no-wait-for-multiple-assertions
+      expect(mockNavigate).toBeCalledWith('/');
+    })
   });
 });
