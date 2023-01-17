@@ -9,13 +9,18 @@
       width: 10%;
     }
   }
-  &__information {}
+  &__information {
+    width: 60%;
+  }
   &__code {
-    font-size: 4rem;
+    font-size: 3rem;
     line-height: 84%;
   }
   &__name {
     font-size: 1.2rem;
     transform: translate(0, -8px);
+    @media screen and (min-width: 45rem) {
+      font-size: 1.75rem;
+    }
   }
 }
