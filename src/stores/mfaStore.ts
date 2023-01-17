@@ -20,8 +20,10 @@ export class MfaStore {
   mfas: MfaEntry[] = [];
   constructor() {
     makeAutoObservable(this, {}, {autoBind: true});
-    this.add('test');
-    this.add('test 1', 'epic-image.png');
+    this.add('Epic Games', 'epic-image.png');
+    this.add('Reddit', 'reddit.png');
+    this.add('Binance', 'binance.png');
+    this.add('Coinbase', 'coinbase.svg');
   }
 
   renewCode(id: string) {

@@ -35,7 +35,7 @@ export const MfaList = observer(() => {
       {store.mfaStore.mfas.map((mfa, index) => (
         <div key={mfa.id} draggable={true} onDragOver={() => onDragOver(index)} onDragEnd={onDragEnd}
              onDragStart={e => onDragStart(e, index)} className="mfa-list__item">
-          <Mfa mfa={mfa} renewCode={store.mfaStore.renewCode}/>
+          <Mfa mfa={mfa} />
         </div>))}
     </div>);
 });

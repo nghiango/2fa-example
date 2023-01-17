@@ -5,24 +5,20 @@ import './Mfa.scss';
 
 interface MfaProps {
   mfa: MfaEntry;
-  renewCode: (id: string) => void;
 }
-export const Mfa = observer(({ mfa, renewCode }: MfaProps) => {
-  const renewCodeInternal = (id: string) => () => {
-    renewCode(id);
-  };
+export const Mfa = observer(({ mfa }: MfaProps) => {
 
   const formatCode = () => {
     return `${mfa.code.slice(0, 3)} ${mfa.code.slice(3)}`;
   }
   return (
     <div className="mfa">
-      <img className="mfa__icon" src={require(`@assets/images/${mfa.icon}`)} alt='icon'/>
+      <img data-testid='icon' className="mfa__icon" src={require(`@assets/images/${mfa.icon}`)} alt='icon'/>
       <div className="mfa__information">
-        <div className="mfa__name">{mfa.name}</div>
-        <div className="mfa__code">{formatCode()}</div>
+        <div data-testid='name' className="mfa__name">{mfa.name}</div>
+        <div data-testid='code' className="mfa__code">{formatCode()}</div>
       </div>
-      <CountDownTimer existingTime={mfa.existingTime} totalTime={mfa.timeout} callback={renewCodeInternal(mfa.id)} />
+      <CountDownTimer  existingTime={mfa.existingTime} totalTime={mfa.timeout} />
     </div>
   );
 });

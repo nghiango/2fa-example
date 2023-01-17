@@ -3,9 +3,8 @@ import { observer } from "mobx-react-lite";
 interface CountDownTimerProps {
   totalTime: number;
   existingTime: number;
-  callback?: () => void;
 }
-export const CountDownTimer = observer(({ totalTime, existingTime, callback }: CountDownTimerProps) => {
+export const CountDownTimer = observer(({ totalTime, existingTime }: CountDownTimerProps) => {
   const circleRadius = 18;
   const MAXIMUM_DASHOFFSET = Math.PI * 2 * circleRadius;
 
@@ -15,7 +14,7 @@ export const CountDownTimer = observer(({ totalTime, existingTime, callback }: C
   };
 
   return (
-    <div className="countdown">
+    <div data-testid='countdownTimer' className="countdown">
       <svg className="countdown--centered">
         <circle
           r={circleRadius}
