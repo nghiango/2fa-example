@@ -11,7 +11,7 @@ const HeaderListPage = () => {
   return (<>
       <div className="header">
         <div className="header__text">Edit</div>
-        <div className="header__title">Tokens</div>
+        <div data-testid='title' className="header__title">Tokens</div>
         <img
           onClick={navigateToAddMfa}
           className="header__icon-right"
@@ -38,7 +38,7 @@ const HeaderAddMfaPage = () => {
           src={BackIcon}
           alt="back-icon"
         />
-        <div className="header__title">Add Service</div>
+        <div data-testid='title' className="header__title">Add Service</div>
         <div></div>
       </div>
     </>

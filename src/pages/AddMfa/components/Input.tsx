@@ -25,9 +25,9 @@ export const Input = ({ name, label, placeholder }: InputProps) => {
   return (
     <>
     <div className="input">
-      <label className="input__label">{label}</label>
-      <input className="input__input" {...register(name)} placeholder={placeholder}/>
-      {errors[name] && <span className="input__error">{getErrorMessage()}</span>}
+      <label data-testid='label' className="input__label">{label}</label>
+      <input data-testid='input' className="input__input" {...register(name)} placeholder={placeholder}/>
+      {errors[name] && <span data-testid='error' className="input__error">{getErrorMessage()}</span>}
     </div>
 
     </>

@@ -22,13 +22,14 @@ export const AddMfa = () => {
   const onSubmit = (data: MfaForm) => {
     store.mfaStore.add(data.name);
     navigate('/');
+    console.log('File AddMfa.tsx, Line 25', new Date().getTime());
   };
   return (
     <FormProvider {...methods}>
       <form className="add-mfa" onSubmit={methods.handleSubmit(onSubmit)}>
         <Input name="name" label="Enter Service Name" placeholder="Please enter service name"/>
         <div className="add-mfa__btn-wrapper">
-          <button className="add-mfa__submit-btn" type="submit">Add</button>
+          <button data-testid='submit' className="add-mfa__submit-btn" type="submit">Add</button>
         </div>
       </form>
     </FormProvider>
