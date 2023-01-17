@@ -22,7 +22,7 @@ export const Mfa = observer(({ mfa, renewCode }: MfaProps) => {
         <div className="mfa__name">{mfa.name}</div>
         <div className="mfa__code">{formatCode()}</div>
       </div>
-      <CountDownTimer time={mfa.timeout} callback={renewCodeInternal(mfa.id)} />
+      <CountDownTimer existingTime={mfa.existingTime} totalTime={mfa.timeout} callback={renewCodeInternal(mfa.id)} />
     </div>
   );
 });

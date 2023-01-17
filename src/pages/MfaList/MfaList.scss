@@ -2,5 +2,8 @@
     &__item {
         border-bottom: 2px #0000000d solid;
         padding: 1rem 0;
+        @media screen and (min-width: 45rem) {
+            margin: 0 10rem;
+        }
     }
 }

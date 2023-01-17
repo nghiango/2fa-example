@@ -7,9 +7,8 @@ export type MfaEntry = {
   code: string;
   icon: string;
   timeout: number;
+  existingTime: number;
 };
-
-type SortType = Omit<MfaEntry, 'timeout'| 'icon'>;
 
 const generateCode = (): string => {
   return `${Math.floor(100000 + Math.random() * 900000)}`;
@@ -28,9 +27,24 @@ export class MfaStore {
   renewCode(id: string) {
     const foundMfa = this.mfas.find((mfa) => mfa.id === id);
     if (foundMfa) {
-      console.log('what happened');
-      
       foundMfa.code = `${generateCode()}`;
+    }
+  }
+
+  reduceExistingTime(mfa: MfaEntry) {
+    mfa.existingTime--;
+    if (mfa.existingTime === 0) {
+      mfa.existingTime = mfa.timeout;
+      this.renewCode(mfa.id);
+    }
+  }
+
+  initInterval(id: string) {
+    const foundMfa = this.mfas.find((mfaData) => mfaData.id === id);
+    if (foundMfa) {
+      setInterval(() => {
+        this.reduceExistingTime(foundMfa);
+      }, 1000);
     }
   }
 
@@ -41,15 +55,17 @@ export class MfaStore {
       .code(generateCode())
       .timeout(timeout)
       .icon(iconName)
+      .existingTime(timeout)
       .build();
+
       this.mfas.push(mfa);
+      this.initInterval(mfa.id);
   }
-  sort(fileName: keyof SortType , acsending: boolean = false) {
-    if (acsending) {
-      this.mfas.sort((a, b) => a[fileName].toLowerCase().localeCompare(b[fileName].toLowerCase()));
-    } else {
-      this.mfas.sort((a, b) => b[fileName].toLowerCase().localeCompare(a[fileName].toLowerCase()));
-    }
+
+  changeOrder(currentIndex: number, newIndex: number) {
+    const mfa = this.mfas[currentIndex];
+    this.mfas.splice(currentIndex, 1);
+    this.mfas.splice(newIndex, 0, mfa);
   }
 }
 

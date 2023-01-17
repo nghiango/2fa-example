@@ -1,19 +1,22 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import { MfaList, AddMfa } from "./pages";
+import { MfaList, AddMfa, Setting } from "./pages";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <App/>,
     children: [
       {
         path: "/",
-        element: <MfaList />,
+        element: <MfaList/>,
       },
       {
         path: "/add",
-        element: <AddMfa />,
+        element: <AddMfa/>,
+      }, {
+        path: "/setting",
+        element: <Setting/>,
       },
     ],
   },

@@ -1,43 +1,63 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "./Header.scss";
-import PlusIcon from "@assets/images/plus.png";
-import BackIcon from "@assets/images/back.png";
-export const Header = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  console.log(location);
+import PlusIcon from "@assets/icons/plus.svg";
+import BackIcon from "@assets/icons/back.svg";
 
+const HeaderListPage = () => {
+  const navigate = useNavigate();
   const navigateToAddMfa = () => {
     navigate("/add");
   };
-	const navigateToHome = () => {
+  return (<>
+      <div className="header">
+        <div className="header__text">Edit</div>
+        <div className="header__title">Tokens</div>
+        <img
+          onClick={navigateToAddMfa}
+          className="header__icon-right"
+          src={PlusIcon}
+          alt="plus-icon"
+        />
+      </div>
+    </>
+
+  );
+};
+
+const HeaderAddMfaPage = () => {
+  const navigate = useNavigate();
+  const navigateToHome = () => {
     navigate("/");
   };
   return (
-    <div className="header">
-      {location.pathname !== "/add" ? (
-        <>
-          <div>Edit</div>
-          <div>Tokens</div>
-          <img
-            onClick={navigateToAddMfa}
-            className="header__add"
-            src={PlusIcon}
-            alt="plus-icon"
-          />
-        </>
-      ) : (
-        <>
-          <img
-            onClick={navigateToHome}
-            className="header__back"
-            src={BackIcon}
-            alt="back-icon"
-          />
-          <div>Add Service</div>
-					<div></div>
-        </>
-      )}
-    </div>
+    <>
+      <div className="header">
+        <img
+          onClick={navigateToHome}
+          className="header__icon-left"
+          src={BackIcon}
+          alt="back-icon"
+        />
+        <div className="header__title">Add Service</div>
+        <div></div>
+      </div>
+    </>
+
+  );
+};
+export const Header = () => {
+  const location = useLocation();
+  const getHeader = () => {
+    switch (location.pathname) {
+      case "/add":
+        return <HeaderAddMfaPage/>;
+      case "/":
+        return <HeaderListPage/>;
+      default:
+        return <HeaderListPage/>;
+    }
+  };
+  return (
+    getHeader()
   );
 };
